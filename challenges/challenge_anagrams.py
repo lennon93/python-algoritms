@@ -2,18 +2,17 @@ def sort_string(string):
     if string == '':
         return ''
 
-    list_string = list(string.lower())
-    length = len(list_string)
+    sorted = list(string.lower())
+    length = len(sorted)
 
     for index in range(length):
 
-        for index_two in range(index + 1, length):
-            if list_string[index_two] < list_string[index]:
+        for index2 in range(index + 1, length):
+            if sorted[index2] < sorted[index]:
 
-                list_string[index] = list_string[index_two]
-                list_string[index_two] = list_string[index]
+                sorted[index], sorted[index2] = sorted[index2], sorted[index]
 
-    return ''.join(list_string)
+    return ''.join(sorted)
 
 
 def is_anagram(first_string, second_string):
