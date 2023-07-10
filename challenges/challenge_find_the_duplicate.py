@@ -1,14 +1,13 @@
-def find_duplicate(nums):   
-    if len(nums) < 2:
-        return False
-    
-    for i in nums:
-        if not isinstance(i, int):
+def find_duplicate(nums):
+    number_set = set()
+
+    for number in nums:
+        if not isinstance(number, int) or number < 1:
             return False
-        if i < 1:
-            return False
-        number = i
-        nums.pop(nums.index(i))    
-        if number in nums:
+
+        if number in number_set:
             return number
+
+        number_set.add(number)
+
     return False
