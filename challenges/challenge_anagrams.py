@@ -1,23 +1,36 @@
-def sort_string(string):
-    if string == '':
-        return ''
+def merge_sort(string):
+    if len(string) <= 1:
+        return string
 
-    sorted = list(string.lower())
-    length = len(sorted)
+    mid = len(string) // 2
+    left, right = merge_sort(string[:mid]), merge_sort(string[mid:])
+    return merge(left, right)
 
-    for index in range(length):
 
-        for index2 in range(index + 1, length):
-            if sorted[index2] < sorted[index]:
+def merge(left, right):
+    left_cursor, right_cursor = 0, 0
+    merged = []
 
-                sorted[index], sorted[index2] = sorted[index2], sorted[index]
+    while left_cursor < len(left) and right_cursor < len(right):
+        if left[left_cursor] <= right[right_cursor]:
+            merged.append(left[left_cursor])
+            left_cursor += 1
+        else:
+            merged.append(right[right_cursor])
+            right_cursor += 1
 
-    return ''.join(sorted)
+    for left_cursor in range(left_cursor, len(left)):
+        merged.append(left[left_cursor])
+
+    for right_cursor in range(right_cursor, len(right)):
+        merged.append(right[right_cursor])
+
+    return merged
 
 
 def is_anagram(first_string, second_string):
-    first = sort_string(first_string)
-    second = sort_string(second_string)
+    first = ''.join(merge_sort(first_string.lower()))
+    second = ''.join(merge_sort(second_string.lower()))
 
     if first != second or first == '' or second == '':
         return (first, second, False)
